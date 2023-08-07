@@ -39,8 +39,28 @@
     <div class="content-wrapper">
       <img alt="相丝yw" class="content-bg" src="https://xsyw001.oss-cn-hongkong.aliyuncs.com/assets/icons/download-bg.png" />
       <div class="content-list">
-        <div class="content-desc">
-          <img alt="相丝yw" src="https://xsyw001.oss-cn-hongkong.aliyuncs.com/assets/icons/content-desc.png">
+        <div style="padding: 5%;color: red;font-size: 15px;text-align: center">
+          <b>因恶意举报导致部分机型出现病毒提示！</b><br/>
+          <b>本平台绝不会涉及任何隐私权限,请大家放心使用！</b>
+        </div>
+        <div style="display: flex;justify-content: center;">
+          <a id="download-android1" style="width: 3rem;margin-right: 1rem" href="https://d.xsywapp.shop/index/index/android">
+            <img alt="安卓下载" src="https://newxiangsi.oss-cn-hangzhou.aliyuncs.com/assets/icons/download-android1.png" />
+          </a>
+          <a id="download-ios1" href="itms-services://?action=download-manifest&url=https://d.xsywapp.shop/storage/download/app.plist">
+            <img alt="iOS下载" style="width: 3rem" src="https://newxiangsi.oss-cn-hangzhou.aliyuncs.com/assets/icons/ios1.png" />
+          </a>
+        </div>
+        <div style="padding: 5%;color: red;font-size: 15px;text-align: center"">
+          河南、云南的用户请下载备用包!
+        </div>
+        <div style="display: flex;justify-content: center;">
+          <a id="download-android2" style="width: 3rem;margin-right: 1rem" href="https://d.xsywapp.shop/index/index/android">
+            <img alt="安卓备用包下载" src="https://newxiangsi.oss-cn-hangzhou.aliyuncs.com/assets/icons/download-android2.png" />
+          </a>
+          <a id="download-ios2" href="itms-services://?action=download-manifest&url=https://d.xsywapp.shop/storage/standby/app.plist">
+            <img alt="iOS备用包下载" style="width: 3rem" src="https://newxiangsi.oss-cn-hangzhou.aliyuncs.com/assets/icons/ios2.png" />
+          </a>
         </div>
 
         <div class="content-item">
@@ -92,19 +112,17 @@
         <span>温馨提示：安全之弦须紧绷，防范网络欺诈，从你我做起。</span>
       </div>
     </div>
-    <div class="download-wrapper">
-      <a id="download-android" href="https://d.xsywapp.shop/index/index/android">
-        <img alt="相丝yw安卓下载" src="https://xsyw001.oss-cn-hongkong.aliyuncs.com/assets/icons/download-android.png" />
-      </a>
-      <a id="download-ios" href="https://d.xsywapp.shop/index/index/ios">
-        <img alt="相丝yw IOS下载" src="https://xsyw001.oss-cn-hongkong.aliyuncs.com/assets/icons/ios.png" />
-      </a>
-    </div>
   </div>
   <script src="https://xsyw001.oss-cn-hongkong.aliyuncs.com/js/lib/jquery-3.6.1.min.js"></script>
   <script src="https://xsyw001.oss-cn-hongkong.aliyuncs.com/js/lib/flexible.js"></script>
   <script src="https://xsyw001.oss-cn-hongkong.aliyuncs.com/js/base.js"></script>
   <script>
+    $("#download-ios1").click(function(){
+      alert("注意：苹果用户必须先卸载再安装！！！")
+    });
+    $("#download-ios2").click(function(){
+      alert("注意：苹果用户必须先卸载再安装！！！")
+    });
     $(document).ready(function() {
       setTimeout(function () {
         $(".download-wrapper").css("position", "fixed");
@@ -112,20 +130,18 @@
 
     });
     $(function () {
-      // $.ajax({
-      //   method: 'GET',
-      //   url: `${baseURL}api/index/download`,
-      //   success: (response) => {
-      //     var code = parseInt(response['code']);
-      //     if (code === 1) {
-      //       var data = response["data"];
-      //       var androidURL = data["android"];
-      //       var iosURL = data["ios"];
-      //       $("#download-android").attr('href', androidURL);
-      //       $("#download-ios").attr('href', iosURL);
-      //     }
-      //   }
-      // })
+      $.ajax({
+        method: 'GET',
+        url: `https://d.xsywapp.shop/index/index/android_url`,
+        success: (response) => {
+          var code = parseInt(response['code']);
+          if (code === 1) {
+            var data = response["data"];
+            $("#download-android1").attr('href', data['file']);
+            $("#download-android2").attr('href', data['standby']);
+          }
+        }
+      })
 
       // $(document).on('scroll', function(e){
       //   console.log($(this).scrollTop(), $(this).height(), $(this).scrollTop() - $(this).height());
@@ -134,7 +150,7 @@
       // 讨论区网络请求
       $.ajax({
         method: 'POST',
-        url: `https://article.xiangsiapp.com/index/index/article`,
+        url: `http://article.xiangsiapp.com/index/index/article`,
         success: (response) => {
           var code = parseInt(response['code']);
           if (code === 1) {
@@ -169,15 +185,15 @@
 
         timeoutHandler = setTimeout(() => {
           console.log("滚动到底了");
-          if (windowHeight + scrollTop + footerHeight >= docHeight) {
-            $('.download-wrapper').stop().animate({
-              'bottom': '4rem'
-            })
-          } else {
-            $('.download-wrapper').stop().animate({
-              'bottom': '1rem'
-            })
-          }
+          // if (windowHeight + scrollTop + footerHeight >= docHeight) {
+          //   $('.download-wrapper').stop().animate({
+          //     'bottom': '4rem'
+          //   })
+          // } else {
+          //   $('.download-wrapper').stop().animate({
+          //     'bottom': '1rem'
+          //   })
+          // }
         }, 100);
       });
     });
